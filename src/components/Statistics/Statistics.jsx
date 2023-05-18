@@ -5,13 +5,13 @@ import css from './Statistics.module.css';
 export const Statistics = ({ title, stats }) => {
     return (
     <section className={css.statistics}>
-    <h2 className={css.title}>{title}</h2>
+    {title && <h2 className={css.title}>{title}</h2>}
   
     <ul className={css.stats_list}>
-        {stats.map(stat => (
-      <li className={css.item} key={stat.id} style={{ backgroundColor: createColor() }} >
-        <span className={css.label}>{stat.label}</span>
-        <span className={css.percentage}>{stat.percentage}%</span>
+      {stats.map(({ id, label, percentage }) => (
+      <li className={css.item} key={id} style={{ backgroundColor: createColor() }} >
+        <span className={css.label}>{label}</span>
+        <span className={css.percentage}>{percentage}%</span>
       </li>
       ))}
     </ul>
@@ -20,7 +20,7 @@ export const Statistics = ({ title, stats }) => {
 }
 
 Statistics.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     stats: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,
